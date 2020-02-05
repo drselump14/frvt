@@ -26,11 +26,11 @@ done
 echo "[SUCCESS]"
 
 # Check for ./doc/version.txt
-if [ ! -s "./doc/version.txt" ]; then
-	echo "[ERROR] ./doc/version.txt was not found.  Per the API document, ./doc/version.txt must document versioning information for the submitted software."
-	echo "Please fix this and re-run."
-	exit $failure
-fi
+# if [ ! -s "./doc/version.txt" ]; then
+# 	echo "[ERROR] ./doc/version.txt was not found.  Per the API document, ./doc/version.txt must document versioning information for the submitted software."
+# 	echo "Please fix this and re-run."
+# 	exit $failure
+# fi
 
 # Compile and build implementation library against
 # validation test driver
@@ -101,7 +101,8 @@ do
         fi
 done
 
-tar -zcf $libstring.tar.gz ./doc ./config ./lib ./validation
+tar -zcf $libstring-1N.tar.gz ./doc ./config ./lib ./validation
+cp $libstring-1N.tar.gz /frvt/artifacts/
 echo "[SUCCESS]"
 echo "
 #################################################################################################################

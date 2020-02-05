@@ -12,7 +12,7 @@ if [ "$reqOS" != "$currentOS" ]; then
 	echo "${bold}[ERROR] You are not running the correct version of the operating system, which should be $reqOS.  Please install the correct operating system and re-run this validation package.${normal}"
 	exit $failure
 fi
- 
+
 # Install the necessary packages to run validation
 echo -n "Checking installation of required packages "
 for package in coreutils gawk gcc gcc-c++ grep cmake sed
@@ -21,7 +21,7 @@ do
 	retcode=$?
 	if [[ $retcode != 0 ]]; then
 		sudo yum install -y $package
-	fi	
+	fi
 done
 echo "[SUCCESS]"
 
@@ -44,7 +44,7 @@ fi
 outputDir="validation"
 # Do some sanity checks against the output logs
 echo -n "Sanity checking validation output "
-for input in quality 
+for input in quality
 do
 	numInputLines=$(cat input/$input.txt | wc -l)
 	numLogLines=$(sed '1d' $outputDir/$input.log | wc -l)
@@ -71,15 +71,16 @@ for directory in config lib validation doc
 do
 if [ ! -d "$directory" ]; then
 	echo "[ERROR] Could not create submission package.  The $directory directory is missing."
-	exit $failure	
+	exit $failure
 fi
 
 done
-tar -zcf $libstring.tar.gz ./config ./lib ./validation ./doc
+tar -zcf $libstring-quality.tar.gz ./config ./lib ./validation ./doc
+cp $libstring-quality.tar.gz /frvt/artifacts/
 echo "[SUCCESS]"
 echo "
 #################################################################################################################
-A submission package has been generated named $libstring.tar.gz.  
+A submission package has been generated named $libstring.tar.gz.
 
 This archive must be properly encrypted and signed before transmission to NIST.
 This must be done according to these instructions - https://www.nist.gov/sites/default/files/nist_encryption.pdf

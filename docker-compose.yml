@@ -1,0 +1,27 @@
+version: '3.7'
+
+x-app: &app
+  labels:
+    function: true
+  build:
+    context: .
+  image: frvt
+  tty: true
+  stdin_open: true
+  volumes:
+    - $PWD/artifacts:/frvt/artifacts
+
+services:
+  '11':
+    <<: *app
+    working_dir: /frvt/11
+  '1n':
+    <<: *app
+    working_dir: /frvt/1N
+  'morph':
+    <<: *app
+    working_dir: /frvt/morph
+  'quality':
+    <<: *app
+    working_dir: /frvt/quality
+
